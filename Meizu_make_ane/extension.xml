@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension xmlns="http://ns.adobe.com/air/extension/4.0">
+  <id>com.meizu.ane</id>
+  <versionNumber>1</versionNumber>
+  <platforms>
+  
+    <platform name="Android-ARM">
+      <applicationDeployment>
+        <nativeLibrary>meizuane.jar</nativeLibrary>
+        <initializer>com.meizu.ane.MeizuExtension</initializer>
+        <finalizer>com.meizu.ane.MeizuExtension</finalizer>
+      </applicationDeployment>
+    </platform>
+    
+  </platforms>
+</extension>

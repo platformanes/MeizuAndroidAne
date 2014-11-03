@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   width="462" applicationComplete="handler_appComp(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.meizu.ane.MeizuEvents;
+			import com.meizu.ane.MeizuExtension;
+			
+			import mx.events.FlexEvent;
+			import mx.utils.ObjectUtil;
+			
+			private var isLang:Boolean = false;
+			private function handler_status($evt:StatusEvent):void
+			{
+				switch($evt.code)
+				{
+					//-----------------------------------------
+					//传回的字符串以 [:] 冒号分割.Javaj端如下传回
+					//callBack(
+					//	"success:UserName:" + accountInfo.getName() + 
+					//	":userID:" + accountInfo.getUid() + 
+					//	":session:" + accountInfo.getSession());
+					//---------------------------------------
+					case MeizuEvents.MEIZU_LOGIN_STATUS:
+						
+						break;
+					
+					
+					case MeizuEvents.MEIZU_LOGOUT_STATUS:
+						
+						break;
+					
+					
+					case MeizuEvents.MEIZU_PAY_STATUS:
+						
+						break;
+					
+					
+					case MeizuEvents.MEIZU_SDK_STATUS:
+						
+						break;
+				}
+				
+				showInfo('\n------------------');
+				showInfo('level:', $evt.level, ',code:', $evt.code);
+			}
+			
+			protected function handler_appComp($evt:FlexEvent):void 
+			{
+				MeizuExtension.getInstance().addEventListener(StatusEvent.STATUS,handler_status);
+			}
+			
+			protected function handler_getStorageBTNclick($evt:MouseEvent):void
+			{
+				clearInfo();
+				showInfo('\n====================');
+			}
+			
+			
+			protected function handler_getSystemInfoBTNclick($evt:MouseEvent):void
+			{
+				clearInfo();
+				
+			}
+			
+			protected function handler_getPackageInfoBTNclick($evt:MouseEvent):void
+			{
+				showInfo('\n====================');
+				
+			}
+			
+			
+			private function showInfo(...$args):void
+			{
+				var __info:String = '';
+				for (var i:int = 0; i < $args.length; i++) 
+				{
+					__info += $args[i] + ",";
+				}
+				infoTA.appendText(__info);
+			}
+			
+			
+			
+			private function clearInfo():void
+			{
+				infoTA.text = '';
+			}
+			
+			
+			protected function sdk_handle(event:MouseEvent):void
+			{
+				var b:Button = event.currentTarget as Button;
+				switch(b.id)
+				{
+					
+					case "init":
+						MeizuExtension.getInstance().MeizuInit("1816347","6d1e9f41d57b44d1995efcab6782a311");
+						break;
+					
+					case "login":
+						MeizuExtension.getInstance().MeizuLogIn(0)
+						break;
+					
+					case "pay":
+						MeizuExtension.getInstance().MeizuPay("http://121.14.58.36:8080/game/demo/createorder?uid=");
+						break;
+					
+					case "logout":
+						MeizuExtension.getInstance().MeizuExit(0)
+						break;
+					
+					case "exits":
+						exit();
+						break;
+					
+				}
+			}
+			
+			
+			
+			private function exit():void
+			{
+				NativeApplication.nativeApplication.exit();   
+			}
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:states>
+		<s:State name="fun1State"/>
+	</s:states>
+	<s:HGroup width="100%" horizontalAlign="center">
+		<s:Label id="qh360" width="406" height="89" color="#6A13ED" fontFamily="Arial" fontSize="14"
+				 fontWeight="bold" text="BarCode ANE (by Rect(rectvv@gmail.com))" textAlign="center"
+				 verticalAlign="middle"/>
+	</s:HGroup>
+	
+	<s:TileGroup includeIn="fun1State" width="100%" height="231">
+		
+		<s:Button id="init" width="178" height="96" label="Init" click="sdk_handle(event)"
+				  fontSize="24"/>
+		
+		<s:Button id="login" label="LogIn" click="sdk_handle(event)" fontSize="24"/>
+		
+		<s:Button id="pay" label="Pay" click="sdk_handle(event)" fontSize="24"/>
+		
+		<s:Button id="logout" label="LogOut" click="sdk_handle(event)" fontSize="24"/>
+		
+		<s:Button id="exits" label="EXIT" click="sdk_handle(event)" fontSize="24"/>
+		
+		
+	</s:TileGroup>	
+	
+	<s:VGroup width="100%" height="530" horizontalAlign="right">
+		<s:TextArea id="infoTA" width="100%" height="524" color="#030715" textAlign="left"/>
+		<s:HGroup>
+		</s:HGroup>
+	</s:VGroup>
+</s:Application>

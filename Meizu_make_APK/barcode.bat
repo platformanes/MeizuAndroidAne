@@ -1,0 +1,1 @@
+"D:\FlashBuilder\Adobe Flash Builder 4.6\sdks\AIR4\bin\adt"  -package -target apk -storetype pkcs12 -keystore a.p12 -storepass 1234 MeizuANE_Demo.apk MeiziSample-app.xml MeiziSample.swf  MzGameCenterService_3.0_s.apk -extdir .
